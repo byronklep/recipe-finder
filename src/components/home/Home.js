@@ -1,7 +1,9 @@
+const { default: RecipeSearch } = require('./components/RecipeSearch')
+
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <RecipeSearch />
     </>
   )
 }
