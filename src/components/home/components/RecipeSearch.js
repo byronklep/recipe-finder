@@ -8,7 +8,13 @@ const RecipeSearch = () => {
   const [loading, setLoading] = useState(false)
   const [q] = useState('')
   const [inputValue, setValue] = useState('')
+  const [inputValue1, setValue1] = useState('')
+  const [inputValue2, setValue2] = useState('')
+  const [inputValue3, setValue3] = useState('')
   const [recipe, setRecipe] = useState(inputValue)
+  const [diet, setDiet] = useState(inputValue1)
+  const [excludeIngredients, setExcludeIngredients] = useState(inputValue2)
+  const [intolerances, setIntolerances] = useState(inputValue3)
 
   const searchRecipe = () => {
     const options = {
@@ -16,10 +22,10 @@ const RecipeSearch = () => {
       url:
         'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
       params: {
-        query: 'burger',
-        diet: 'vegetarian',
-        excludeIngredients: 'coconut',
-        intolerances: 'egg, gluten',
+        query: recipe,
+        diet: diet,
+        excludeIngredients: excludeIngredients,
+        intolerances: intolerances,
         number: '10',
         offset: '0',
         type: 'main course',
@@ -36,7 +42,7 @@ const RecipeSearch = () => {
       .then(function (response) {
         setData(response.data.results)
         setLoading(false)
-        console.log(response.data.results)
+        // console.log(response.data.results)
       })
       .catch(function (error) {
         console.error(error)
@@ -46,6 +52,9 @@ const RecipeSearch = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setRecipe(inputValue)
+    setDiet(inputValue1)
+    setExcludeIngredients(inputValue2)
+    setIntolerances(inputValue3)
     searchRecipe()
   }
   if (loading) {
@@ -61,19 +70,47 @@ const RecipeSearch = () => {
               <input
                 type="text"
                 name="search"
-                placeholder="Search recipes"
+                placeholder="Enter key terms"
                 value={inputValue}
                 onChange={(e) => setValue(e.target.value)}
                 className="form-control"
               />
-            </div>
-            <div className="col-12 col-sm-auto pl-sm-0">
+
               <input
-                type="submit"
-                name="commit"
-                value="Search"
-                className="btn btn-primary btn-block"
+                type="text"
+                name="diet"
+                placeholder="Enter diet details"
+                value={inputValue1}
+                onChange={(e) => setValue1(e.target.value)}
+                className="form-control"
               />
+
+              <input
+                type="text"
+                name="search"
+                placeholder="Exclude ingredients"
+                value={inputValue2}
+                onChange={(e) => setValue2(e.target.value)}
+                className="form-control"
+              />
+
+              <input
+                type="text"
+                name="search"
+                placeholder="Intolerances"
+                value={inputValue3}
+                onChange={(e) => setValue3(e.target.value)}
+                className="form-control"
+              />
+
+              <div className="col-12 col-sm-auto pl-sm-0">
+                <input
+                  type="submit"
+                  name="commit"
+                  value="Search"
+                  className="btn btn-primary btn-block"
+                />
+              </div>
             </div>
           </form>
         </div>
